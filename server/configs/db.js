@@ -1,7 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-main().catch((err) => console.log(err));
-
-const main = async () => {
-  await mongoose.connect('mongodb://127.0.0.1:27017/test');
+const mongodb = {
+  connect: () => {
+    mongoose
+      .connect("mongodb://localhost:27017/tarefilfiley_db", {
+        useNewUrlParser: true,
+      })
+      .catch((error) => console.error(error));
+  },
 };
+
+module.exports = mongodb;
