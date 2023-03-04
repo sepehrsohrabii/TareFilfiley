@@ -1,19 +1,31 @@
+import loadFont from "./fonts";
+
+loadFont();
+
 const theme = {
   typography: {
     heading1: {
-      fontSize: "24px",
-      fontFamily: "Inter-Black",
+      fontSize: "64px",
+      fontFamily: "IS_Bold",
     },
-    heading2: {
+    subTitle: {
       fontSize: "18px",
-      fontFamily: "Inter-Black",
+      fontFamily: "IS",
+    },
+    subTitle_M: {
+      fontSize: "18px",
+      fontFamily: "IS_Medium",
+    },
+    paragraph2: {
+      fontSize: "16px",
+      fontFamily: "IS",
     },
   },
   colors: {
-    darkGreen: "#184D47",
-    lightGreen: "#96BB7C",
-    yellow: "#FAD586",
-    red: "#C64756",
+    one: "#184D47",
+    two: "#96BB7C",
+    three: "#FAD586",
+    four: "#C64756",
     darkGray: "#303030",
     defaultTextColor: "#353740",
     darkTextColor: "#202123",
