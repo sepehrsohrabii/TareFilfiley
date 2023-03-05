@@ -4,21 +4,21 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
-  Modal,
-  Pressable,
 } from "react-native";
 import styled from "styled-components/native";
 import theme from "../config/theme";
 import loadFont from "../config/fonts";
 import * as SplashScreen from "expo-splash-screen";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import RBSheet from "react-native-raw-bottom-sheet";
+import SignUpForm from "../components/signUpForm";
 
 SplashScreen.preventAutoHideAsync();
 
 const homeImage = require("../assets/img/food.jpg");
 
 const HomeScreen = ({ navigation }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const refRBSheet = useRef();
 
   useEffect(() => {
     loadFont();
@@ -40,38 +40,37 @@ const HomeScreen = ({ navigation }) => {
             <SubTitle>پلتفرم رایگان منو آنلاین</SubTitle>
           </TextBox>
           <TextBox>
-            <Paragraoh2>
+            <Paragraph2>
               دارای قابلیت تخصیص لینک و صفحه ی اختصاصی به هر رستوران و ساخت کیو
               آر کد برای شما کافه رستوران داران عزیز.
-            </Paragraoh2>
+            </Paragraph2>
           </TextBox>
         </Col>
       </Row>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => setModalVisible(true)}
+        onPress={() => {
+          refRBSheet.current.open();
+        }}
       >
         <ButtonText>ثبت نام</ButtonText>
       </TouchableOpacity>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
+      <RBSheet
+        ref={refRBSheet}
+        closeOnDragDown={true}
+        closeOnPressMask={false}
+        style={styles.bottomSheet}
+        customStyles={{
+          wrapper: {
+            backgroundColor: "transparent",
+          },
+          draggableIcon: {
+            backgroundColor: "#000",
+          },
         }}
       >
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>Hello World!</Text>
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}
-          >
-            <Text style={styles.textStyle}>Hide Modal</Text>
-          </Pressable>
-        </View>
-      </Modal>
+        <SignUpForm />
+      </RBSheet>
     </Container>
   );
 };
@@ -108,7 +107,7 @@ const SubTitle = styled.Text`
   font-size: ${theme.typography.subTitle.fontSize};
   color: ${theme.colors.three};
 `;
-const Paragraoh2 = styled.Text`
+const Paragraph2 = styled.Text`
   font-family: ${theme.typography.paragraph2.fontFamily};
   font-size: ${theme.typography.paragraph2.fontSize};
   color: ${theme.colors.white};
@@ -137,38 +136,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: "7%",
   },
-  modalView: {
-    position: "absolute",
-    bottom: "0px",
-    width: "100%",
-    height: "80%",
-    backgroundColor: "white",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 35,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-  },
-
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
+  bottomSheet: {
+    borderTopLeftRadius: "10px",
+    borderTopRightRadius: "10px",
   },
 });
 export default HomeScreen;
