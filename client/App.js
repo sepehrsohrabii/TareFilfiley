@@ -1,17 +1,17 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Layout from "./layout/layout";
-import React, { useState } from "react";
-import { Provider as PaperProvider } from "react-native-paper";
-
+import loadFont from "./config/fonts";
+import { useEffect } from "react";
 export default function App() {
+  useEffect(() => {
+    loadFont();
+  }, []);
   return (
-    <PaperProvider>
-      <View style={styles.container}>
-        <Layout />
-        <StatusBar style="auto" />
-      </View>
-    </PaperProvider>
+    <View style={styles.container}>
+      <Layout />
+      <StatusBar style="auto" />
+    </View>
   );
 }
 

@@ -7,12 +7,13 @@ import {
 } from "react-native";
 import styled from "styled-components/native";
 import theme from "../config/theme";
-import loadFont from "../config/fonts";
+
 import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect, useRef, useState } from "react";
 import RBSheet from "react-native-raw-bottom-sheet";
 import SignUpForm from "../components/signUpForm";
-
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 SplashScreen.preventAutoHideAsync();
 
 const homeImage = require("../assets/img/food.jpg");
@@ -20,9 +21,6 @@ const homeImage = require("../assets/img/food.jpg");
 const HomeScreen = ({ navigation }) => {
   const refRBSheet = useRef();
 
-  useEffect(() => {
-    loadFont();
-  }, []);
   return (
     <Container>
       <Row>
@@ -41,8 +39,8 @@ const HomeScreen = ({ navigation }) => {
           </TextBox>
           <TextBox>
             <Paragraph2>
-              دارای قابلیت تخصیص لینک و صفحه ی اختصاصی به هر رستوران و ساخت کیو
-              آر کد برای شما کافه رستوران داران عزیز.
+              دارای قابلیت تخصیص لینک و صفحه‌ی اختصاصی به هر رستوران و ساخت
+              کیو‌آر‌کد برای شما کافه رستوران داران عزیز.
             </Paragraph2>
           </TextBox>
         </Col>
@@ -58,18 +56,32 @@ const HomeScreen = ({ navigation }) => {
       <RBSheet
         ref={refRBSheet}
         closeOnDragDown={true}
-        closeOnPressMask={false}
-        style={styles.bottomSheet}
+        height={600}
         customStyles={{
           wrapper: {
             backgroundColor: "transparent",
           },
+          container: {
+            backgroundColor: theme.colors.white,
+            paddingHorizontal: 60,
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 30,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: -5,
+            },
+            shadowOpacity: 0.2,
+            shadowRadius: 6.27,
+
+            elevation: 10,
+          },
           draggableIcon: {
-            backgroundColor: "#000",
+            backgroundColor: theme.colors.one,
           },
         }}
       >
-        <SignUpForm />
+        <SignUpForm bottomSheet={refRBSheet} />
       </RBSheet>
     </Container>
   );
@@ -135,10 +147,14 @@ const styles = StyleSheet.create({
     right: "15%",
     position: "absolute",
     bottom: "7%",
-  },
-  bottomSheet: {
-    borderTopLeftRadius: "10px",
-    borderTopRightRadius: "10px",
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.17,
+    shadowRadius: 3.05,
+    elevation: 4,
   },
 });
 export default HomeScreen;

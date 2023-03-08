@@ -1,26 +1,19 @@
-import { SafeAreaView, View } from "react-native";
-import styled from "styled-components/native";
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import CreateMenu from "../screens/createMenu";
 import HomeScreen from "../screens/home";
 
 const Stack = createNativeStackNavigator();
-const MyTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: "rgb(255, 45, 85)",
-    background: "transparent",
-  },
-};
+
 const Layout = () => {
   return (
-    <NavigationContainer theme={MyTheme}>
+    <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="CreateMenu"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="CreateMenu" component={CreateMenu} />
       </Stack.Navigator>
     </NavigationContainer>
   );

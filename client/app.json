@@ -23,6 +23,17 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "expo": {
+      "plugins": [
+        [
+          "expo-image-picker",
+          {
+            "photosPermission": "The app accesses your photos to let you put it in your menu.",
+            "cameraPermission": "The app accesses your camera to let you take picture of your product and put it in your menu."
+          }
+        ]
+      ]
     }
   }
 }
