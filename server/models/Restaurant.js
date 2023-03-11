@@ -5,11 +5,11 @@ const { Schema } = mongoose;
 const RestaurantSchema = new Schema({
   title: String,
   image: String,
-  description: String,
+  opening_times: String,
+  creator: String,
   created_at: String,
-  category: String,
 });
 
-const RestaurantModel = mongoose.model("posts", RestaurantSchema);
+const RestaurantModel = mongoose.model("Restaurant", RestaurantSchema);
 
 module.exports = RestaurantModel;

@@ -1,9 +1,15 @@
 import { useState } from "react";
-import { SafeAreaView, StyleSheet, TextInput, Text, View } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import styled from "styled-components/native";
 import theme from "../config/theme";
 import { CheckBox } from "@rneui/themed";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
 const SignUpForm = ({ bottomSheet }) => {
@@ -56,7 +62,7 @@ const SignUpForm = ({ bottomSheet }) => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          navigation.navigate("CreateMenu");
+          navigation.navigate("Restaurants");
           bottomSheet.current.close();
         }}
       >

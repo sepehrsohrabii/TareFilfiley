@@ -1,5 +1,5 @@
 import { Icon } from "@rneui/themed";
-import React from "react";
+import React, { useRef } from "react";
 import {
   SafeAreaView,
   View,
@@ -8,8 +8,12 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
+import RBSheet from "react-native-raw-bottom-sheet";
 import theme from "../../config/theme";
+import AddEditCategorySheet from "./addEditategorySheet";
+import AddEditCategoryForm from "./addEditCategoryForm";
 
 const DATA = [
   {
@@ -34,25 +38,104 @@ const DATA = [
   },
 ];
 
-const Item = ({ title }) => (
-  <TouchableOpacity style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-    <Text style={styles.subTitle}>۱۲ مورد</Text>
-    <Icon type="material" name="edit" color={theme.colors.two} />
-  </TouchableOpacity>
-);
+const Item = ({ title }) => {
+  const refRBSheet2 = useRef();
+  return (
+    <View>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => {
+          refRBSheet2.current.open();
+        }}
+      >
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subTitle}>۱۲ مورد</Text>
+        <Icon type="material" name="edit" color={theme.colors.two} />
+      </TouchableOpacity>
+      <RBSheet
+        ref={refRBSheet2}
+        closeOnDragDown={true}
+        height={300}
+        customStyles={{
+          wrapper: {
+            backgroundColor: "transparent",
+          },
+          container: {
+            backgroundColor: theme.colors.white,
+            paddingHorizontal: 60,
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 30,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: -5,
+            },
+            shadowOpacity: 0.2,
+            shadowRadius: 6.27,
+
+            elevation: 10,
+          },
+          draggableIcon: {
+            backgroundColor: theme.colors.one,
+          },
+        }}
+      >
+        <AddEditCategoryForm title={title} bottomSheet={refRBSheet2} />
+      </RBSheet>
+    </View>
+  );
+};
 
 const CategoryList = () => {
+  const refRBSheet = useRef();
+
   return (
     <FlatList
       data={DATA}
       renderItem={({ item, index }) => {
         if (index == 0) {
           return (
-            <TouchableOpacity style={styles.addButton}>
-              <Text style={styles.addButtonText}>جدید</Text>
-              <Icon type="material" name="add" color={theme.colors.white} />
-            </TouchableOpacity>
+            <View>
+              <TouchableOpacity
+                style={styles.addButton}
+                onPress={() => {
+                  refRBSheet.current.open();
+                }}
+              >
+                <Text style={styles.addButtonText}>جدید</Text>
+                <Icon type="material" name="add" color={theme.colors.white} />
+              </TouchableOpacity>
+              <RBSheet
+                ref={refRBSheet}
+                closeOnDragDown={true}
+                height={300}
+                customStyles={{
+                  wrapper: {
+                    backgroundColor: "transparent",
+                  },
+                  container: {
+                    backgroundColor: theme.colors.white,
+                    paddingHorizontal: 60,
+                    borderTopLeftRadius: 30,
+                    borderTopRightRadius: 30,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: -5,
+                    },
+                    shadowOpacity: 0.2,
+                    shadowRadius: 6.27,
+
+                    elevation: 10,
+                  },
+                  draggableIcon: {
+                    backgroundColor: theme.colors.one,
+                  },
+                }}
+              >
+                <AddEditCategoryForm bottomSheet={refRBSheet} />
+              </RBSheet>
+            </View>
           );
         } else {
           return <Item title={item.title} />;
@@ -61,7 +144,7 @@ const CategoryList = () => {
       keyExtractor={(item) => item.id}
       horizontal={true}
       inverted
-      style={{ overflow: "visible" }}
+      style={{ paddingVertical: 6 }}
     />
   );
 };

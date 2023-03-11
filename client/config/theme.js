@@ -20,6 +20,14 @@ const theme = {
       fontSize: "24px",
       fontFamily: "IS_Bold",
     },
+    heading5: {
+      fontSize: "18px",
+      fontFamily: "IS_Bold",
+    },
+    heading6: {
+      fontSize: "14px",
+      fontFamily: "IS_Bold",
+    },
     label: {
       fontSize: "16px",
       fontFamily: "IS",
@@ -35,6 +43,18 @@ const theme = {
     paragraph2: {
       fontSize: "16px",
       fontFamily: "IS",
+    },
+    productTitle: {
+      fontSize: "14px",
+      fontFamily: "IS_Medium",
+    },
+    productSubTitle: {
+      fontSize: "12px",
+      fontFamily: "IS",
+    },
+    productPrice: {
+      fontSize: "16px",
+      fontFamily: "IS_Medium",
     },
     small: {
       fontSize: "14px",

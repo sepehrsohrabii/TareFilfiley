@@ -6,20 +6,22 @@ import {
   SafeAreaView,
   TextInput,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components/native";
 import theme from "../../config/theme";
-import RBSheet from "react-native-raw-bottom-sheet";
 import * as ImagePicker from "expo-image-picker";
 import { Icon } from "@rneui/themed";
 import CategoryList from "./categoryList";
 import ProductList from "./productList";
+import RBSheet from "react-native-raw-bottom-sheet";
+import AddEditProductForm from "./addEditProductForm";
 
 const CreateMenuMainForm = ({ navigation }) => {
   const [name, onChangeName] = useState("");
   const [phone, onChangePhone] = useState("");
   const [clocks, onChangeClocks] = useState("");
   const [image, setImage] = useState(null);
+  const refProductSheet = useRef();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -74,15 +76,57 @@ const CreateMenuMainForm = ({ navigation }) => {
       </Padding>
       <CategoryList />
       <Padding>
-        <Label>لیست محصولات</Label>
+        <View style={styles.productListTitleBox}>
+          <TouchableOpacity
+            onPress={() => {
+              refProductSheet.current.open();
+            }}
+          >
+            <View style={styles.addProduct}>
+              <Icon type="material" name="add" color={theme.colors.white} />
+            </View>
+          </TouchableOpacity>
+          <RBSheet
+            ref={refProductSheet}
+            closeOnDragDown={true}
+            height={700}
+            customStyles={{
+              wrapper: {
+                backgroundColor: "transparent",
+              },
+              container: {
+                backgroundColor: theme.colors.white,
+                paddingHorizontal: 60,
+                borderTopLeftRadius: 30,
+                borderTopRightRadius: 30,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: -5,
+                },
+                shadowOpacity: 0.2,
+                shadowRadius: 6.27,
+
+                elevation: 10,
+              },
+              draggableIcon: {
+                backgroundColor: theme.colors.one,
+              },
+            }}
+          >
+            <AddEditProductForm bottomSheet={refProductSheet} />
+          </RBSheet>
+          <ProductListLabel>لیست محصولات</ProductListLabel>
+        </View>
+        <ProductList />
       </Padding>
-      <ProductList />
     </SafeAreaView>
   );
 };
 const Padding = styled.View`
   padding-left: 30px;
   padding-right: 30px;
+  overflow: hidden;
 `;
 const Label = styled.Text`
   font-family: ${theme.typography.label.fontFamily};
@@ -91,6 +135,11 @@ const Label = styled.Text`
   margin-top: 30px;
   margin-bottom: 10px;
   padding-right: 10px;
+`;
+const ProductListLabel = styled.Text`
+  font-family: ${theme.typography.label.fontFamily};
+  font-size: ${theme.typography.label.fontSize};
+  color: ${theme.colors.darkTextColor};
 `;
 const ButtonText = styled.Text`
   font-family: ${theme.typography.subTitle_M.fontFamily};
@@ -136,6 +185,30 @@ const styles = StyleSheet.create({
     elevation: 4,
     marginTop: 0,
     flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  productListTitleBox: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 30,
+    marginBottom: 10,
+    paddingRight: 10,
+  },
+  addProduct: {
+    backgroundColor: theme.colors.four,
+    borderRadius: 10,
+    padding: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+    elevation: 11,
+    marginTop: 0,
     justifyContent: "center",
     alignItems: "center",
   },

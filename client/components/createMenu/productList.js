@@ -10,56 +10,56 @@ import {
   TouchableOpacity,
 } from "react-native";
 import theme from "../../config/theme";
+import SingleProductItem from "./singleProductItem";
+
+const ProductIMG = require("../../assets/img/food (1).jpg");
 
 const DATA = [
   {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
-  },
-  {
     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
     title: "صبحانه",
+    price: "۲۰۰،۰۰۰",
+    desc: "کره، پنیر، کوفت و درد",
+    img: ProductIMG,
   },
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d72",
     title: "نوشیدنی",
+    price: "۲۰۰،۰۰۰",
+    desc: "کره، پنیر، کوفت و درد",
+    img: ProductIMG,
   },
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d72",
     title: "نوشیدنی",
+    price: "۲۰۰،۰۰۰",
+    desc: "کره، پنیر، کوفت و درد",
+    img: ProductIMG,
   },
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d72",
     title: "نوشیدنی",
+    price: "۲۰۰،۰۰۰",
+    desc: "کره، پنیر، کوفت و درد",
+    img: ProductIMG,
   },
 ];
-
-const Item = ({ title }) => (
-  <TouchableOpacity style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-    <Text style={styles.subTitle}>۱۲ مورد</Text>
-    <Icon type="material" name="edit" color={theme.colors.two} />
-  </TouchableOpacity>
-);
 
 const ProductList = () => {
   return (
     <FlatList
       data={DATA}
-      renderItem={({ item, index }) => {
-        if (index == 0) {
-          return (
-            <TouchableOpacity style={styles.addButton}>
-              <Text style={styles.addButtonText}>جدید</Text>
-              <Icon type="material" name="add" color={theme.colors.white} />
-            </TouchableOpacity>
-          );
-        } else {
-          return <Item title={item.title} />;
-        }
+      renderItem={({ item }) => {
+        return (
+          <SingleProductItem
+            title={item.title}
+            price={item.price}
+            desc={item.desc}
+            img={item.img}
+          />
+        );
       }}
       keyExtractor={(item) => item.id}
-      inverted
       style={{ overflow: "visible" }}
     />
   );
